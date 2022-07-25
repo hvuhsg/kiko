@@ -1,0 +1,24 @@
+_id: req_wrk_1033bc1130354dc7acc39b0e8c73bddf9140e764
+type: Request
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddff8e966d1
+modified: 1658752075262
+created: 1658752075262
+url: "{{ base_url }}/node"
+name: Delete existing node
+description: ""
+method: DELETE
+body: {}
+parameters:
+  - name: node
+    disabled: true
+    value: string
+headers: []
+authentication: {}
+metaSortKey: -1658752075262
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

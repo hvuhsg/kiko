@@ -1,0 +1,27 @@
+_id: req_wrk_1033bc1130354dc7acc39b0e8c73bddf9eec15a4
+type: Request
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf814605c6
+modified: 1658752075257
+created: 1658752075257
+url: "{{ base_url }}/connection"
+name: Create connection between nodes
+description: ""
+method: DELETE
+body: {}
+parameters:
+  - name: from
+    disabled: false
+    value: string
+  - name: to
+    disabled: false
+    value: string
+headers: []
+authentication: {}
+metaSortKey: -1658752075257
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
