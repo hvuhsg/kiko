@@ -1,7 +1,7 @@
 _id: spc_a77b40c2f61e40c78077d218d5fb607a
 type: ApiSpec
 parentId: wrk_1033bc1130354dc7acc39b0e8c73bddf
-modified: 1658756769963
+modified: 1658758059568
 created: 1658747081802
 fileName: kiko
 contents: |
@@ -72,6 +72,10 @@ contents: |
         responses:
           "200":
             description: Node object
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Node"
           "404":
             description: Node not found
       delete:
@@ -88,11 +92,7 @@ contents: |
               type: string
         responses:
           "200":
-            description: Node object
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/Node"
+            description: Node deleted
           "404":
             description: Node not found
     /connection:
