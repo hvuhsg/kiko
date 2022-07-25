@@ -1,0 +1,157 @@
+_id: spc_a77b40c2f61e40c78077d218d5fb607a
+type: ApiSpec
+parentId: wrk_1033bc1130354dc7acc39b0e8c73bddf
+modified: 1658752238510
+created: 1658747081802
+fileName: insomnia.yaml
+contents: |
+  openapi: 3.0.0
+
+  info:
+    description: "General purpose recommendation system"
+    version: 0.0.1
+    title: Kiko
+    termsOfService: http://kiko.com
+    contact:
+      email: support@kiko.com
+
+  externalDocs:
+    description: Find out more about Kiko
+    url: http://kiko.com/docs
+
+  servers:
+    - url: https://api.kiko.com/
+
+  tags:
+    - name: node
+      description: Item representaion in the system
+      externalDocs:
+        description: more
+        url: http://kiko.com/docs/node
+    - name: connection
+      description: the connection between two nodes
+      externalDocs:
+        description: more
+        url: http://kiko.com/docs/connection
+
+  paths:
+    /node:
+      post:
+        tags:
+          - node
+        summary: Add a new node to the system
+        description: "Create new node in the system"
+        operationId: addNode
+        responses:
+          "201":
+            description: Node Created
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NewNode"
+      get:
+        tags:
+          - node
+        summary: Get existing node
+        description: ""
+        operationId: getNode
+        parameters:
+          - name: node
+            in: query
+            description: node uuid
+            schema:
+              type: string
+        responses:
+          "200":
+            description: Node object
+          "404":
+            description: Node not found
+      delete:
+        tags:
+          - node
+        summary: Delete existing node
+        description: ""
+        operationId: deleteNode
+        parameters:
+          - name: node
+            in: query
+            description: node uuid
+            schema:
+              type: string
+        responses:
+          "200":
+            description: Node object
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Node"
+          "404":
+            description: Node not found
+    /connection:
+      post:
+        tags:
+          - connection
+        summary: Create connection between nodes
+        description: ""
+        operationId: createConnection
+        parameters:
+          - name: from
+            in: query
+            required: true
+            schema:
+              type: string
+          - name: to
+            in: query
+            required: true
+            schema:
+              type: string
+          - name: weight
+            in: query
+            required: true
+            schema:
+              type: integer
+        responses:
+          "200":
+            description: Connection created
+          "404":
+            description: Nodes not found
+      delete:
+        tags:
+          - connection
+        summary: Delete connection between nodes
+        description: ""
+        operationId: deleteConnection
+        parameters:
+          - name: from
+            in: query
+            required: true
+            schema:
+              type: string
+          - name: to
+            in: query
+            required: true
+            schema:
+              type: string
+        responses:
+          "200":
+            description: Connection deleted
+          "404":
+            description: Connection not found
+
+  components:
+    schemas:
+      NewNode:
+        type: object
+        properties:
+          uuid:
+            type: string
+      Node:
+        type: object
+        properties:
+          uuid:
+            type: string
+          connections:
+            type: array
+            items:
+              type: string
+contentType: yaml
