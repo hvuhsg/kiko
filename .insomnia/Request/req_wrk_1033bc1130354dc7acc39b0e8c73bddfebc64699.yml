@@ -1,0 +1,29 @@
+_id: req_wrk_1033bc1130354dc7acc39b0e8c73bddfebc64699
+type: Request
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf7cd9148e
+modified: 1658756853315
+created: 1658756763351
+url: "{{ base_url }}/query/recommendations"
+name: Query recommended nodes for node
+description: ""
+method: GET
+body: {}
+parameters:
+  - name: node
+    disabled: true
+    value: string
+    id: pair_5b54ad082b0140eca799826aa67e3269
+  - name: k
+    disabled: true
+    value: "0"
+    id: pair_dca3594ee9b840889ee5fc096c3a0d53
+headers: []
+authentication: {}
+metaSortKey: -1658756763351
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

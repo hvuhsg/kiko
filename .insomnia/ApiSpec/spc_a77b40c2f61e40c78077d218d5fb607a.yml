@@ -1,7 +1,7 @@
 _id: spc_a77b40c2f61e40c78077d218d5fb607a
 type: ApiSpec
 parentId: wrk_1033bc1130354dc7acc39b0e8c73bddf
-modified: 1658755852469
+modified: 1658756769963
 created: 1658747081802
 fileName: kiko
 contents: |
@@ -32,10 +32,15 @@ contents: |
         description: more
         url: http://kiko.com/docs/node
     - name: connection
-      description: the connection between two nodes
+      description: Distance between two nodes
       externalDocs:
         description: more
         url: http://kiko.com/docs/connection
+    - name: query
+      description: Using the system
+      externalDocs:
+        description: more
+        url: http://kiko.com/docs/queries
 
   paths:
     /node:
@@ -140,6 +145,34 @@ contents: |
             description: Connection deleted
           "404":
             description: Connection not found
+    /query/recommendations:
+      get:
+        tags:
+          - query
+        summary: Query recommended nodes for node
+        description: Get k most recommended nodes for node n
+        operationId: getKRecommendations
+        parameters:
+          - name: node
+            in: query
+            description: node uuid
+            schema:
+              type: string
+          - name: k
+            in: query
+            description: number of recommendations
+            schema:
+              type: integer
+            
+        responses:
+          "200":
+            description: KNN results
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NodeList"
+            
+         
 
   components:
     schemas:
@@ -154,6 +187,16 @@ contents: |
           uuid:
             type: string
           connections:
+            type: object
+            properties:
+              uuid:
+                type: string
+              weight:
+                type: integer
+      NodeList:
+        type: object
+        properties:
+          nodes:
             type: array
             items:
               type: string
