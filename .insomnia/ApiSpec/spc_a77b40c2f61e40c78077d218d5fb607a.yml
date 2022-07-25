@@ -1,7 +1,7 @@
 _id: spc_a77b40c2f61e40c78077d218d5fb607a
 type: ApiSpec
 parentId: wrk_1033bc1130354dc7acc39b0e8c73bddf
-modified: 1658752238510
+modified: 1658752653299
 created: 1658747081802
 fileName: insomnia.yaml
 contents: |
@@ -21,6 +21,9 @@ contents: |
 
   servers:
     - url: https://api.kiko.com/
+      description: Production Server
+    - url: http://127.0.0.1:8080/
+      description: Development Server
 
   tags:
     - name: node
