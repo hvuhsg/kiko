@@ -1,0 +1,18 @@
+_id: env_4106699752f541d0a90d908782a3015b
+type: Environment
+parentId: env_120fa279b695d5556853f86e7a5d394ca87fa933
+modified: 1658752759845
+created: 1658752725350
+name: OpenAPI dev env
+data:
+  scheme: http
+  base_path: ""
+  host: 127.0.0.1:8080
+dataPropertyOrder:
+  "&":
+    - scheme
+    - base_path
+    - host
+color: "#00ff1e"
+isPrivate: false
+metaSortKey: 1658752725350

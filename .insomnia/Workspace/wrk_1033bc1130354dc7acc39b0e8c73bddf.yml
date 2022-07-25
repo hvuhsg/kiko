@@ -1,8 +1,10 @@
 _id: wrk_1033bc1130354dc7acc39b0e8c73bddf
 type: Workspace
 parentId: null
-modified: 1658747081801
+modified: 1658755904577
 created: 1658747081801
 name: insomnia.yaml
-description: ""
+description: |-
+  # kiko insomnia space
+  spec, requests, tests
 scope: design

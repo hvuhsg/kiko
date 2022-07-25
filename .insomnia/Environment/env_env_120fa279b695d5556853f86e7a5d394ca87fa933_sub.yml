@@ -1,9 +1,9 @@
 _id: env_env_120fa279b695d5556853f86e7a5d394ca87fa933_sub
 type: Environment
 parentId: env_120fa279b695d5556853f86e7a5d394ca87fa933
-modified: 1658752646533
+modified: 1658752722572
 created: 1658752075270
-name: OpenAPI env
+name: OpenAPI  prod env
 data:
   scheme: https
   base_path: ""
@@ -13,6 +13,6 @@ dataPropertyOrder:
     - scheme
     - base_path
     - host
-color: null
+color: "#ff0000"
 isPrivate: false
 metaSortKey: 1658752075270
