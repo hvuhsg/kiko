@@ -1,0 +1,10 @@
+_id: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf814605c6
+type: RequestGroup
+parentId: wrk_1033bc1130354dc7acc39b0e8c73bddf
+modified: 1658752075267
+created: 1658752075267
+name: connection
+description: the connection between two nodes
+environment: {}
+environmentPropertyOrder: null
+metaSortKey: -1658752075267
