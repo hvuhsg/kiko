@@ -7,6 +7,7 @@ import (
 
 type ISpaceNode interface {
 	kdtree.Point
+	String() string
 	GetUUID() uuid.UUID
 	GetVector() []float64
 }
