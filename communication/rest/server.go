@@ -32,7 +32,7 @@ func loadRouters(r *mux.Router, engine *execution.IEngine) {
 		handleConnection(w, r, engine)
 	}).Name("connection")
 
-	r.HandleFunc("/query/knn", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/query/recommendations", func(w http.ResponseWriter, r *http.Request) {
 		handleKnnQuery(w, r, engine)
 	}).Name("query-knn")
 }
