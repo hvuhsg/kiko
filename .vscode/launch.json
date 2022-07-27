@@ -5,12 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Run rest server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "cmd/rest_server.go"
+        },
+        {
             "name": "Debug rest server",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rest_server.go"
         }
-
     ]
 }
