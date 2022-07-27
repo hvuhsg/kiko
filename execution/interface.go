@@ -41,6 +41,6 @@ type IEngine interface {
 
 	Optimize()
 
-	// get k closest nodes to node sorted from closest to farsest
-	KNN(uuid.UUID, int) ([]uuid.UUID, error)
+	// get k most recommended nodes for node
+	Recommend(uuid.UUID, int) ([]uuid.UUID, error)
 }

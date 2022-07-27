@@ -218,7 +218,7 @@ func handleKnnQuery(w http.ResponseWriter, r *http.Request, engine *execution.IE
 		return
 	}
 
-	results, err := (*engine).KNN(nodeUuid, int(kInt))
+	results, err := (*engine).Recommend(nodeUuid, int(kInt))
 	if err != nil {
 		writeError(err.Error(), w)
 		return

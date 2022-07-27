@@ -60,7 +60,7 @@ func (e *engine) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, weight uin
 
 func (e *engine) Optimize() {}
 
-func (e *engine) KNN(nodeUuid uuid.UUID, k int) ([]uuid.UUID, error) {
+func (e *engine) Recommend(nodeUuid uuid.UUID, k int) ([]uuid.UUID, error) {
 	spaceNode, err := (*e.sorage).GetSpaceNode(nodeUuid)
 	if err != nil {
 		return nil, err
