@@ -11,7 +11,7 @@ type storage struct {
 	connections map[uuid.UUID]map[uuid.UUID]uint
 }
 
-// Ram nodes and connections storage
+// Create new RAM storage for nodes and connections
 func NewStorage() IStorage {
 	s := new(storage)
 	s.nodes = make(map[uuid.UUID]*ISpaceNode, 1000)
@@ -19,11 +19,13 @@ func NewStorage() IStorage {
 	return s
 }
 
+// Save node in the RAM
 func (s *storage) AddNode(nodeUuid uuid.UUID, spaceNode *ISpaceNode) {
 	s.nodes[nodeUuid] = spaceNode
 	s.connections[nodeUuid] = make(map[uuid.UUID]uint, 10)
 }
 
+// Remove node from the RAM storage
 func (s *storage) RemoveNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
 	spaceNode, ok := s.nodes[nodeUuid]
 	if !ok {
@@ -85,6 +87,7 @@ func (s *storage) GetNodeConnections(nodeUuid uuid.UUID) (map[uuid.UUID]uint, er
 	return connections, nil
 }
 
+// Get node by uuid
 func (s *storage) GetSpaceNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
 	spaceNode, ok := s.nodes[nodeUuid]
 	if !ok {

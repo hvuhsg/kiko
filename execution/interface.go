@@ -5,6 +5,7 @@ import (
 	"github.com/kyroy/kdtree"
 )
 
+// Node uuid and vector data
 type ISpaceNode interface {
 	kdtree.Point
 	String() string
@@ -23,6 +24,7 @@ type IStorage interface {
 	GetSpaceNode(uuid.UUID) (*ISpaceNode, error)
 }
 
+// Vector space for the nodes
 type ISpace interface {
 	AddNode(uuid.UUID) *ISpaceNode
 	RemoveNode(*ISpaceNode) error
@@ -31,6 +33,7 @@ type ISpace interface {
 	KNN(*ISpaceNode, int) []uuid.UUID
 }
 
+// Recommendation system that works on a graph,
 type IEngine interface {
 	AddNode() uuid.UUID
 	RemoveNode(uuid.UUID) error

@@ -13,6 +13,7 @@ type space struct {
 	dimensions  uint
 }
 
+// Create nodes vector space
 func NewSpace(dimensions uint) ISpace {
 	s := new(space)
 	s.kdtreeSpace = *kdtree.New([]kdtree.Point{})
@@ -21,6 +22,7 @@ func NewSpace(dimensions uint) ISpace {
 	return s
 }
 
+// Add node to vector space
 func (s *space) AddNode(nodeUuid uuid.UUID) *ISpaceNode {
 	spaceNode := NewRandomSpaceNode(s.dimensions, nodeUuid)
 
@@ -29,6 +31,7 @@ func (s *space) AddNode(nodeUuid uuid.UUID) *ISpaceNode {
 	return &spaceNode
 }
 
+// Remove node from vector space
 func (s *space) RemoveNode(spaceNode *ISpaceNode) error {
 	foundNode := s.kdtreeSpace.Remove(*spaceNode)
 	if foundNode == nil {
@@ -56,6 +59,7 @@ type spaceNode struct {
 	uuid   uuid.UUID
 }
 
+// Create new node from vector and uuid
 func NewSpaceNode(vec []float64, nodeUuid uuid.UUID) ISpaceNode {
 	s := new(spaceNode)
 	s.vector = vec
@@ -64,6 +68,7 @@ func NewSpaceNode(vec []float64, nodeUuid uuid.UUID) ISpaceNode {
 	return s
 }
 
+// Create node with random vector with values in range 0-1
 func NewRandomSpaceNode(lenght uint, nodeUuid uuid.UUID) ISpaceNode {
 	vec := make([]float64, lenght)
 
@@ -74,22 +79,27 @@ func NewRandomSpaceNode(lenght uint, nodeUuid uuid.UUID) ISpaceNode {
 	return NewSpaceNode(vec, nodeUuid)
 }
 
+// Get number of node vector dimensions (vector lenght)
 func (s *spaceNode) Dimensions() int {
 	return len(s.vector)
 }
 
+// Get vector dimension value
 func (s *spaceNode) Dimension(i int) float64 {
 	return s.vector[i]
 }
 
+// Get node string representaion (the node uuid as string)
 func (s *spaceNode) String() string {
 	return s.GetUUID().String()
 }
 
+// Get node uuid
 func (s *spaceNode) GetUUID() uuid.UUID {
 	return s.uuid
 }
 
+// Get node vector
 func (s *spaceNode) GetVector() []float64 {
 	return s.vector
 }
