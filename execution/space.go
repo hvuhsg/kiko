@@ -40,9 +40,13 @@ func (s *space) RemoveNode(spaceNode *ISpaceNode) error {
 
 func (s *space) KNN(spaceNode *ISpaceNode, k int) []uuid.UUID {
 	closeNodes := s.kdtreeSpace.KNN(*spaceNode, int(k))
-	fmt.Println(closeNodes)
-
 	nodesUuids := make([]uuid.UUID, len(closeNodes))
+
+	// TODO: replace this stupid solution
+	for index, node := range closeNodes {
+		nodeUuid, _ := uuid.Parse(fmt.Sprint(node))
+		nodesUuids[index] = nodeUuid
+	}
 
 	return nodesUuids
 }
@@ -70,18 +74,22 @@ func NewRandomSpaceNode(lenght uint, nodeUuid uuid.UUID) ISpaceNode {
 	return NewSpaceNode(vec, nodeUuid)
 }
 
-func (s spaceNode) Dimensions() int {
+func (s *spaceNode) Dimensions() int {
 	return len(s.vector)
 }
 
-func (s spaceNode) Dimension(i int) float64 {
+func (s *spaceNode) Dimension(i int) float64 {
 	return s.vector[i]
 }
 
-func (s spaceNode) GetUUID() uuid.UUID {
+func (s *spaceNode) String() string {
+	return s.GetUUID().String()
+}
+
+func (s *spaceNode) GetUUID() uuid.UUID {
 	return s.uuid
 }
 
-func (s spaceNode) GetVector() []float64 {
+func (s *spaceNode) GetVector() []float64 {
 	return s.vector
 }
