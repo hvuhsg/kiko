@@ -19,12 +19,12 @@ func NewStorage() IStorage {
 	return s
 }
 
-func (s storage) AddNode(nodeUuid uuid.UUID, spaceNode *ISpaceNode) {
+func (s *storage) AddNode(nodeUuid uuid.UUID, spaceNode *ISpaceNode) {
 	s.nodes[nodeUuid] = spaceNode
 	s.connections[nodeUuid] = make(map[uuid.UUID]uint, 10)
 }
 
-func (s storage) RemoveNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
+func (s *storage) RemoveNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
 	spaceNode, ok := s.nodes[nodeUuid]
 	if !ok {
 		return nil, fmt.Errorf("node '%s' not found", nodeUuid.String())
@@ -36,7 +36,7 @@ func (s storage) RemoveNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
 	return spaceNode, nil
 }
 
-func (s storage) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error {
+func (s *storage) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error {
 	_, fromExist := s.nodes[from]
 	_, toExist := s.nodes[to]
 
@@ -49,7 +49,7 @@ func (s storage) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error 
 	return nil
 }
 
-func (s storage) RemoveConnection(from uuid.UUID, to uuid.UUID) error {
+func (s *storage) RemoveConnection(from uuid.UUID, to uuid.UUID) error {
 	_, ok := s.connections[from][to]
 	if !ok {
 		return fmt.Errorf("connection does not exist")
@@ -60,7 +60,7 @@ func (s storage) RemoveConnection(from uuid.UUID, to uuid.UUID) error {
 	return nil
 }
 
-func (s storage) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, updatedWeight uint) error {
+func (s *storage) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, updatedWeight uint) error {
 	_, ok := s.connections[from][to]
 	if !ok {
 		return fmt.Errorf("connection does not exist")
@@ -71,7 +71,7 @@ func (s storage) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, updatedWei
 	return nil
 }
 
-func (s storage) GetNodeConnections(nodeUuid uuid.UUID) (map[uuid.UUID]uint, error) {
+func (s *storage) GetNodeConnections(nodeUuid uuid.UUID) (map[uuid.UUID]uint, error) {
 	connections, ok := s.connections[nodeUuid]
 	if !ok {
 		return nil, fmt.Errorf("node '%s' does not exist", nodeUuid.String())
@@ -80,7 +80,7 @@ func (s storage) GetNodeConnections(nodeUuid uuid.UUID) (map[uuid.UUID]uint, err
 	return connections, nil
 }
 
-func (s storage) GetSpaceNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
+func (s *storage) GetSpaceNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
 	spaceNode, ok := s.nodes[nodeUuid]
 	if !ok {
 		return nil, fmt.Errorf("node '%s' does not exist", nodeUuid.String())

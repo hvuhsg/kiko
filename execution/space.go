@@ -21,7 +21,7 @@ func NewSpace(dimensions uint) ISpace {
 	return s
 }
 
-func (s space) AddNode(nodeUuid uuid.UUID) *ISpaceNode {
+func (s *space) AddNode(nodeUuid uuid.UUID) *ISpaceNode {
 	spaceNode := NewRandomSpaceNode(s.dimensions, nodeUuid)
 
 	s.kdtreeSpace.Insert(spaceNode)
@@ -29,7 +29,7 @@ func (s space) AddNode(nodeUuid uuid.UUID) *ISpaceNode {
 	return &spaceNode
 }
 
-func (s space) RemoveNode(spaceNode *ISpaceNode) error {
+func (s *space) RemoveNode(spaceNode *ISpaceNode) error {
 	foundNode := s.kdtreeSpace.Remove(*spaceNode)
 	if foundNode == nil {
 		return fmt.Errorf("node '%s' does not exist", (*spaceNode).GetUUID().String())
@@ -38,7 +38,7 @@ func (s space) RemoveNode(spaceNode *ISpaceNode) error {
 	return nil
 }
 
-func (s space) KNN(spaceNode *ISpaceNode, k int) []uuid.UUID {
+func (s *space) KNN(spaceNode *ISpaceNode, k int) []uuid.UUID {
 	closeNodes := s.kdtreeSpace.KNN(*spaceNode, int(k))
 	fmt.Println(closeNodes)
 

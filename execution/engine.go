@@ -22,7 +22,7 @@ func NewEngine(dimensions uint) IEngine {
 	return e
 }
 
-func (e engine) AddNode() uuid.UUID {
+func (e *engine) AddNode() uuid.UUID {
 	nodeUuid := uuid.New()
 
 	spaceNode := (*e.space).AddNode(nodeUuid)
@@ -31,7 +31,7 @@ func (e engine) AddNode() uuid.UUID {
 	return nodeUuid
 }
 
-func (e engine) RemoveNode(nodeUuid uuid.UUID) error {
+func (e *engine) RemoveNode(nodeUuid uuid.UUID) error {
 	spaceNode, err := (*e.sorage).RemoveNode(nodeUuid)
 	if err != nil {
 		return err
@@ -42,25 +42,25 @@ func (e engine) RemoveNode(nodeUuid uuid.UUID) error {
 	return err
 }
 
-func (e engine) GetNodeConnections(nodeUuid uuid.UUID) (map[uuid.UUID]uint, error) {
+func (e *engine) GetNodeConnections(nodeUuid uuid.UUID) (map[uuid.UUID]uint, error) {
 	return (*e.sorage).GetNodeConnections(nodeUuid)
 }
 
-func (e engine) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error {
+func (e *engine) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error {
 	return (*e.sorage).AddConnection(from, to, weight)
 }
 
-func (e engine) RemoveConnection(from uuid.UUID, to uuid.UUID) error {
+func (e *engine) RemoveConnection(from uuid.UUID, to uuid.UUID) error {
 	return (*e.sorage).RemoveConnection(from, to)
 }
 
-func (e engine) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, weight uint) error {
+func (e *engine) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, weight uint) error {
 	return (*e.sorage).UpdateConnectionWeight(from, to, weight)
 }
 
-func (e engine) Optimize() {}
+func (e *engine) Optimize() {}
 
-func (e engine) KNN(nodeUuid uuid.UUID, k int) ([]uuid.UUID, error) {
+func (e *engine) KNN(nodeUuid uuid.UUID, k int) ([]uuid.UUID, error) {
 	spaceNode, err := (*e.sorage).GetSpaceNode(nodeUuid)
 	if err != nil {
 		return nil, err
