@@ -188,7 +188,7 @@ func handleConnection(w http.ResponseWriter, r *http.Request, engine *execution.
 }
 
 func handleKnnQuery(w http.ResponseWriter, r *http.Request, engine *execution.IEngine) {
-	if r.Method != "Get" {
+	if r.Method != "GET" {
 		writeError("Method not allowed", w)
 		return
 	}
