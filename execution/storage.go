@@ -44,6 +44,11 @@ func (s *storage) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error
 		return fmt.Errorf("connection nodes does not exist")
 	}
 
+	_, ok := s.connections[from][to]
+	if ok {
+		return fmt.Errorf("connection already exist")
+	}
+
 	s.connections[from][to] = weight
 
 	return nil
