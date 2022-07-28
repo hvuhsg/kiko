@@ -38,6 +38,11 @@ func (s *storage) RemoveNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
 	return spaceNode, nil
 }
 
+// Update nodes spaceNode
+func (s *storage) UpdateSpaceNode(nodeUuid uuid.UUID, spaceNode *ISpaceNode) {
+	s.nodes[nodeUuid] = spaceNode
+}
+
 func (s *storage) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error {
 	_, fromExist := s.nodes[from]
 	_, toExist := s.nodes[to]
@@ -95,4 +100,17 @@ func (s *storage) GetSpaceNode(nodeUuid uuid.UUID) (*ISpaceNode, error) {
 	}
 
 	return spaceNode, nil
+}
+
+func (s *storage) GetNodesUUIDChannel() chan uuid.UUID {
+	uuidsChan := make(chan uuid.UUID, 50)
+
+	go func() {
+		defer close(uuidsChan)
+		for nodeUuid := range s.nodes {
+			uuidsChan <- nodeUuid
+		}
+	}()
+
+	return uuidsChan
 }

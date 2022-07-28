@@ -2,9 +2,9 @@ package execution
 
 import (
 	"fmt"
-	"math/rand"
 
 	"github.com/google/uuid"
+	"github.com/hvuhsg/kiko/pkg/vector"
 	"github.com/kyroy/kdtree"
 )
 
@@ -41,6 +41,11 @@ func (s *space) RemoveNode(spaceNode *ISpaceNode) error {
 	return nil
 }
 
+func (s *space) UpdateNode(old *ISpaceNode, new *ISpaceNode) {
+	s.kdtreeSpace.Remove(*old)
+	s.kdtreeSpace.Insert(*new)
+}
+
 func (s *space) KNN(spaceNode *ISpaceNode, k int) []uuid.UUID {
 	closeNodes := s.kdtreeSpace.KNN(*spaceNode, int(k))
 	nodesUuids := make([]uuid.UUID, len(closeNodes))
@@ -55,12 +60,12 @@ func (s *space) KNN(spaceNode *ISpaceNode, k int) []uuid.UUID {
 }
 
 type spaceNode struct {
-	vector []float64
+	vector vector.Vector
 	uuid   uuid.UUID
 }
 
 // Create new node from vector and uuid
-func NewSpaceNode(vec []float64, nodeUuid uuid.UUID) ISpaceNode {
+func NewSpaceNodeFromVector(vec vector.Vector, nodeUuid uuid.UUID) ISpaceNode {
 	s := new(spaceNode)
 	s.vector = vec
 	s.uuid = nodeUuid
@@ -68,25 +73,32 @@ func NewSpaceNode(vec []float64, nodeUuid uuid.UUID) ISpaceNode {
 	return s
 }
 
+// Create new node from array and uuid
+func NewSpaceNodeFromArray(arr []float64, nodeUuid uuid.UUID) ISpaceNode {
+	s := new(spaceNode)
+	s.vector = vector.NewVectorFromArray(arr)
+	s.uuid = nodeUuid
+
+	return s
+}
+
 // Create node with random vector with values in range 0-1
 func NewRandomSpaceNode(lenght uint, nodeUuid uuid.UUID) ISpaceNode {
-	vec := make([]float64, lenght)
+	s := new(spaceNode)
+	s.vector = vector.NewRandomVector(int(lenght))
+	s.uuid = nodeUuid
 
-	for i := range vec {
-		vec[i] = rand.Float64()
-	}
-
-	return NewSpaceNode(vec, nodeUuid)
+	return s
 }
 
 // Get number of node vector dimensions (vector lenght)
 func (s *spaceNode) Dimensions() int {
-	return len(s.vector)
+	return s.vector.Dimensions()
 }
 
 // Get vector dimension value
 func (s *spaceNode) Dimension(i int) float64 {
-	return s.vector[i]
+	return s.vector.Dimension(i)
 }
 
 // Get node string representaion (the node uuid as string)
@@ -100,6 +112,6 @@ func (s *spaceNode) GetUUID() uuid.UUID {
 }
 
 // Get node vector
-func (s *spaceNode) GetVector() []float64 {
+func (s *spaceNode) GetVector() vector.Vector {
 	return s.vector
 }
