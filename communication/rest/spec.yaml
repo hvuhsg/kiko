@@ -1,0 +1,195 @@
+openapi: 3.0.0
+
+info:
+  description: "General purpose recommendation system"
+  version: 0.0.1
+  title: Kiko
+  termsOfService: http://kiko.com
+  contact:
+    email: support@kiko.com
+
+externalDocs:
+  description: Find out more about Kiko
+  url: http://kiko.com/docs
+
+servers:
+  - url: https://api.kiko.com/
+    description: Production Server
+  - url: http://127.0.0.1:8080/
+    description: Development Server
+
+tags:
+  - name: node
+    description: Item representaion in the system
+    externalDocs:
+      description: more
+      url: http://kiko.com/docs/node
+  - name: connection
+    description: Distance between two nodes
+    externalDocs:
+      description: more
+      url: http://kiko.com/docs/connection
+  - name: query
+    description: Using the system
+    externalDocs:
+      description: more
+      url: http://kiko.com/docs/queries
+
+paths:
+  /node:
+    post:
+      tags:
+        - node
+      summary: Add a new node to the system
+      description: "Create new node in the system"
+      operationId: addNode
+      responses:
+        "201":
+          description: Node Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewNode"
+    get:
+      tags:
+        - node
+      summary: Get existing node
+      description: ""
+      operationId: getNode
+      parameters:
+        - name: node
+          in: query
+          description: node uuid
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Node object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Node"
+        "404":
+          description: Node not found
+    delete:
+      tags:
+        - node
+      summary: Delete existing node
+      description: ""
+      operationId: deleteNode
+      parameters:
+        - name: node
+          in: query
+          description: node uuid
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Node deleted
+        "404":
+          description: Node not found
+  /connection:
+    post:
+      tags:
+        - connection
+      summary: Create connection between nodes
+      description: ""
+      operationId: createConnection
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: weight
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Connection created
+        "404":
+          description: Nodes not found
+    delete:
+      tags:
+        - connection
+      summary: Delete connection between nodes
+      description: ""
+      operationId: deleteConnection
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Connection deleted
+        "404":
+          description: Connection not found
+  /query/recommendations:
+    get:
+      tags:
+        - query
+      summary: Query recommended nodes for node
+      description: Get k most recommended nodes for node n
+      operationId: getKRecommendations
+      parameters:
+        - name: node
+          in: query
+          description: node uuid
+          schema:
+            type: string
+        - name: k
+          in: query
+          description: number of recommendations
+          schema:
+            type: integer
+          
+      responses:
+        "200":
+          description: KNN results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NodeList"
+          
+       
+
+components:
+  schemas:
+    NewNode:
+      type: object
+      properties:
+        uuid:
+          type: string
+    Node:
+      type: object
+      properties:
+        uuid:
+          type: string
+        connections:
+          type: object
+          properties:
+            uuid:
+              type: string
+            weight:
+              type: integer
+    NodeList:
+      type: object
+      properties:
+        nodes:
+          type: array
+          items:
+            type: string
