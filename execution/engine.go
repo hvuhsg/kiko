@@ -1,19 +1,22 @@
 package execution
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"github.com/hvuhsg/kiko/pkg/vector"
 )
 
 type engine struct {
-	sorage       *IStorage
-	space        *ISpace
-	dimentions   uint
-	learningRate float64
+	sorage                   *IStorage
+	space                    *ISpace
+	dimentions               uint
+	learningRate             float64
+	minOptimizationRoundTime time.Duration
 }
 
 // Create new recommendation engine with configuration
-func NewEngine(dimensions uint) IEngine {
+func NewEngine(dimensions uint, learningRate float64, optimizationRoundDuration time.Duration) IEngine {
 	e := new(engine)
 	spaceV1 := NewSpace(dimensions)
 	storageV1 := NewStorage()
@@ -21,7 +24,8 @@ func NewEngine(dimensions uint) IEngine {
 	e.sorage = &storageV1
 	e.space = &spaceV1
 	e.dimentions = dimensions
-	e.learningRate = 0.01
+	e.learningRate = learningRate
+	e.minOptimizationRoundTime = optimizationRoundDuration
 
 	return e
 }
@@ -55,41 +59,69 @@ func (e *engine) GetNodeConnections(nodeUuid uuid.UUID) (map[uuid.UUID]uint, err
 
 // Add connection between nodes by thire uuids
 func (e *engine) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error {
-	return (*e.sorage).AddConnection(from, to, weight)
+	err := (*e.sorage).AddConnection(from, to, weight)
+	if err != nil {
+		return err
+	}
+
+	return (*e.sorage).AddConnection(to, from, weight)
 }
 
 // Remove connection between nodes by thire uuids
 func (e *engine) RemoveConnection(from uuid.UUID, to uuid.UUID) error {
-	return (*e.sorage).RemoveConnection(from, to)
+	err := (*e.sorage).RemoveConnection(from, to)
+	if err != nil {
+		return err
+	}
+
+	return (*e.sorage).RemoveConnection(to, from)
 }
 
 // Update connection weight
 func (e *engine) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, weight uint) error {
-	return (*e.sorage).UpdateConnectionWeight(from, to, weight)
+	err := (*e.sorage).UpdateConnectionWeight(from, to, weight)
+	if err != nil {
+		return err
+	}
+
+	return (*e.sorage).UpdateConnectionWeight(to, from, weight)
+}
+
+func optimaizeNode(e *engine, nodeUuid uuid.UUID) {
+	spaceNode, _ := (*e.sorage).GetSpaceNode(nodeUuid)
+	currentPosition := (*spaceNode).GetVector()
+	connections, _ := (*e.sorage).GetNodeConnections(nodeUuid)
+	var updatedPosition vector.Vector
+
+	for connectionNodeUuid, weight := range connections {
+		connectionSpaceNode, _ := (*e.sorage).GetSpaceNode(connectionNodeUuid)
+		diffVec := (*connectionSpaceNode).GetVector().Sub(currentPosition)
+		diffNorm := diffVec.Norm()
+		normalizedDiffVec := diffVec.Normalize()
+		shiftLenght := (diffNorm - float64(weight)) * e.learningRate
+		updatedPosition = currentPosition.Add(normalizedDiffVec.Mul(shiftLenght))
+	}
+
+	if len(connections) > 0 {
+		updatedSpaceNode := NewSpaceNodeFromVector(updatedPosition, nodeUuid)
+		(*e.sorage).UpdateSpaceNode(nodeUuid, &updatedSpaceNode)
+		(*e.space).UpdateNode(spaceNode, &updatedSpaceNode)
+	}
+}
+
+func optimizationRound(e *engine) {
+	nodeUuids := (*e.sorage).GetNodesUUIDChannel()
+
+	for nodeUuid := range nodeUuids {
+		optimaizeNode(e, nodeUuid)
+	}
 }
 
 // Optimaize recommendations by updating the vector space
 func (e *engine) Optimize() {
-	nodeUuids := (*e.sorage).GetNodesUUIDChannel()
-
-	for nodeUuid := range nodeUuids {
-		spaceNode, _ := (*e.sorage).GetSpaceNode(nodeUuid)
-		currentPosition := (*spaceNode).GetVector()
-		connections, _ := (*e.sorage).GetNodeConnections(nodeUuid)
-		var updatedPosition vector.Vector
-
-		for connectionNodeUuid, weight := range connections {
-			connectionSpaceNode, _ := (*e.sorage).GetSpaceNode(connectionNodeUuid)
-			diffVec := (*connectionSpaceNode).GetVector().Sub(currentPosition)
-			diffNorm := diffVec.Norm()
-			normalizedDiffVec := diffVec.Normalize()
-			shiftLenght := (diffNorm - float64(weight)) * e.learningRate
-			updatedPosition = currentPosition.Add(normalizedDiffVec.Mul(shiftLenght))
-		}
-
-		updatedSpaceNode := NewSpaceNodeFromVector(updatedPosition, nodeUuid)
-		(*e.sorage).UpdateSpaceNode(nodeUuid, &updatedSpaceNode)
-		(*e.space).UpdateNode(spaceNode, &updatedSpaceNode)
+	for {
+		optimizationRound(e)
+		time.Sleep(e.minOptimizationRoundTime)
 	}
 }
 

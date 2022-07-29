@@ -47,13 +47,17 @@ func (s *space) UpdateNode(old *ISpaceNode, new *ISpaceNode) {
 }
 
 func (s *space) KNN(spaceNode *ISpaceNode, k int) []uuid.UUID {
-	closeNodes := s.kdtreeSpace.KNN(*spaceNode, int(k))
-	nodesUuids := make([]uuid.UUID, len(closeNodes))
+	closeNodes := s.kdtreeSpace.KNN(*spaceNode, int(k+1))
+	nodesUuids := make([]uuid.UUID, len(closeNodes)-1)
 
 	// TODO: replace this stupid solution
 	for index, node := range closeNodes {
+		if index == 0 {
+			continue
+		}
+
 		nodeUuid, _ := uuid.Parse(fmt.Sprint(node))
-		nodesUuids[index] = nodeUuid
+		nodesUuids[index-1] = nodeUuid
 	}
 
 	return nodesUuids
