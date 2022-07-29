@@ -1,0 +1,15 @@
+_id: greq_c12bc4760ac04988aa7013ce24ad1e9d
+type: GrpcRequest
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf7cd9148e
+modified: 1659108314072
+created: 1659108289160
+url: 127.0.0.1:50051
+name: Get recommendations
+description: ""
+protoFileId: pf_23c1cf2cf1ed4621b3188959a0eb33e9
+protoMethodName: /kiko.KikoService/GetKRecommendations
+metadata: []
+body:
+  text: '{"node": "48e94c89-72cd-4d45-84d9-e15d5b7f8bb3", "k": 2}'
+metaSortKey: -1658756763301
+isPrivate: false

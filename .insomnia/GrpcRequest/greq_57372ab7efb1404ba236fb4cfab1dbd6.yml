@@ -1,0 +1,15 @@
+_id: greq_57372ab7efb1404ba236fb4cfab1dbd6
+type: GrpcRequest
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddff8e966d1
+modified: 1659108185767
+created: 1659108142563
+url: 127.0.0.1:50051
+name: Get node
+description: ""
+protoFileId: pf_23c1cf2cf1ed4621b3188959a0eb33e9
+protoMethodName: /kiko.KikoService/GetNode
+metadata: []
+body:
+  text: '{"node": "8451c037-80c3-4225-b0c6-d70ca1048bbc"}'
+metaSortKey: -1658752075262.5
+isPrivate: false

@@ -1,0 +1,16 @@
+_id: greq_a29d7e1dd937482bb794106664e2e4bd
+type: GrpcRequest
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf814605c6
+modified: 1659108266872
+created: 1659108245519
+url: 127.0.0.1:50051
+name: Delete connection
+description: ""
+protoFileId: pf_23c1cf2cf1ed4621b3188959a0eb33e9
+protoMethodName: /kiko.KikoService/DeleteConnection
+metadata: []
+body:
+  text: '{"from": "48e94c89-72cd-4d45-84d9-e15d5b7f8bb3", "to":
+    "48e94c89-72cd-4d45-84d9-e15d5b7f8bb3"}'
+metaSortKey: -1658752075235.25
+isPrivate: false

@@ -1,0 +1,91 @@
+_id: pf_23c1cf2cf1ed4621b3188959a0eb33e9
+type: ProtoFile
+parentId: wrk_1033bc1130354dc7acc39b0e8c73bddf
+modified: 1659107889287
+created: 1659107853390
+name: spec.proto
+protoText: >-
+  syntax = "proto3";
+
+
+  option go_package = "github.com/hvuhsg/kiko/communication/grpc";
+
+  package kiko;
+
+
+  import "google/protobuf/empty.proto";
+
+
+  message AddNodeResponse {
+      string node = 1;
+  }
+
+
+  message CreateConnectionRequest {
+      string from = 1;
+      string to = 2;
+      int32 weight = 3;
+  }
+
+
+  message DeleteConnectionRequest {
+      string from = 1;
+      string to = 2;
+  }
+
+
+  message DeleteNodeRequest {
+      // node uuid
+      string node = 1;
+  }
+
+
+  message GetKRecommendationsRequest {
+      // number of recommendations
+      int32 k = 1;
+
+      // node uuid
+      string node = 2;
+  }
+
+
+  message GetKRecommendationsReponse {
+      string node = 1;
+      repeated string recommendations = 2;
+  }
+
+
+  message GetNodeRequest {
+      // node uuid
+      string node = 1;
+  }
+
+
+  message GetNodeResponse {
+      map<string, int64> connections = 1;
+  }
+
+
+  service KikoService {
+      // Add a new node to the system
+      // 
+      // Create new node in the system
+      rpc AddNode(google.protobuf.Empty) returns (AddNodeResponse) {}
+
+      // Create connection between nodes
+      rpc CreateConnection(CreateConnectionRequest) returns (google.protobuf.Empty) {}
+
+      // Delete connection between nodes
+      rpc DeleteConnection(DeleteConnectionRequest) returns (google.protobuf.Empty) {}
+
+      // Delete existing node
+      rpc DeleteNode(DeleteNodeRequest) returns (google.protobuf.Empty) {}
+
+      // Query recommended nodes for node
+      // 
+      // Get k most recommended nodes for node n
+      rpc GetKRecommendations(GetKRecommendationsRequest) returns (GetKRecommendationsReponse) {}
+
+      // Get existing node
+      rpc GetNode(GetNodeRequest) returns (GetNodeResponse) {}
+  }

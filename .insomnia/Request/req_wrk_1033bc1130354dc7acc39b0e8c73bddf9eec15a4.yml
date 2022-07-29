@@ -1,10 +1,10 @@
 _id: req_wrk_1033bc1130354dc7acc39b0e8c73bddf9eec15a4
 type: Request
 parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf814605c6
-modified: 1658758238643
+modified: 1659108207138
 created: 1658752075257
 url: "{{ base_url }}/connection"
-name: Create connection between nodes
+name: Delete connection between nodes
 description: ""
 method: DELETE
 body: {}

@@ -1,7 +1,7 @@
 _id: req_wrk_1033bc1130354dc7acc39b0e8c73bddfebc64699
 type: Request
 parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf7cd9148e
-modified: 1658756853315
+modified: 1659096434766
 created: 1658756763351
 url: "{{ base_url }}/query/recommendations"
 name: Query recommended nodes for node
@@ -10,12 +10,12 @@ method: GET
 body: {}
 parameters:
   - name: node
-    disabled: true
-    value: string
+    disabled: false
+    value: 555bc8ca-4f93-4572-a3ee-2c43221eb3b4
     id: pair_5b54ad082b0140eca799826aa67e3269
   - name: k
-    disabled: true
-    value: "0"
+    disabled: false
+    value: "2"
     id: pair_dca3594ee9b840889ee5fc096c3a0d53
 headers: []
 authentication: {}
