@@ -1,0 +1,16 @@
+_id: greq_77e4737929b14666889b8e12c03ba320
+type: GrpcRequest
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf814605c6
+modified: 1659108194028
+created: 1659108042336
+url: 127.0.0.1:50051
+name: Create connection
+description: ""
+protoFileId: pf_23c1cf2cf1ed4621b3188959a0eb33e9
+protoMethodName: /kiko.KikoService/CreateConnection
+metadata: []
+body:
+  text: '{"from": "48e94c89-72cd-4d45-84d9-e15d5b7f8bb3", "to":
+    "48e94c89-72cd-4d45-84d9-e15d5b7f8bb3", "weight": 12}'
+metaSortKey: -1658752075258.5
+isPrivate: false

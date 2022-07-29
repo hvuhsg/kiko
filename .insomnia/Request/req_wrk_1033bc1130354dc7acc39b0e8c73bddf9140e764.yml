@@ -1,7 +1,7 @@
 _id: req_wrk_1033bc1130354dc7acc39b0e8c73bddf9140e764
 type: Request
 parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddff8e966d1
-modified: 1658758211140
+modified: 1658946562189
 created: 1658752075262
 url: "{{ base_url }}/node"
 name: Delete existing node
@@ -10,8 +10,8 @@ method: DELETE
 body: {}
 parameters:
   - name: node
-    disabled: true
-    value: string
+    disabled: false
+    value: 53467923-eeef-41fc-a43e-f829ae2b9825
     id: pair_3bdc664dcbc4457cb3ec8c45582255ff
 headers: []
 authentication: {}

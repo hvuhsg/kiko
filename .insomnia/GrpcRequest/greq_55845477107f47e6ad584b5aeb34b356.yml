@@ -1,0 +1,15 @@
+_id: greq_55845477107f47e6ad584b5aeb34b356
+type: GrpcRequest
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddff8e966d1
+modified: 1659108191993
+created: 1659107375948
+url: 127.0.0.1:50051
+name: Add node
+description: ""
+protoFileId: pf_23c1cf2cf1ed4621b3188959a0eb33e9
+protoMethodName: /kiko.KikoService/AddNode
+metadata: []
+body:
+  text: "{}"
+metaSortKey: -1658752075264
+isPrivate: false

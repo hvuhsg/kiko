@@ -1,7 +1,7 @@
 _id: req_wrk_1033bc1130354dc7acc39b0e8c73bddf2d147869
 type: Request
 parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddf814605c6
-modified: 1658758250523
+modified: 1659095252137
 created: 1658752075260
 url: "{{ base_url }}/connection"
 name: Create connection between nodes
@@ -11,11 +11,11 @@ body: {}
 parameters:
   - name: from
     disabled: false
-    value: 255c2fe8-8134-484f-8edc-c570aa2d1ce1
+    value: ddc996ef-45c6-4668-8cd6-8724d0e8acb8
     id: pair_29d6e82b854c4611b47d75f9bda265bb
   - name: to
     disabled: false
-    value: 69f440b9-87b4-4576-a167-e0d5742902cd
+    value: cf401ff2-7191-490b-bcbd-c72e2258ea24
     id: pair_dc4bd982c0bd4b9487c289dcafd15dcf
   - name: weight
     disabled: false

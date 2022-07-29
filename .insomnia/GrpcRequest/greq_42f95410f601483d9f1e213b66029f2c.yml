@@ -1,0 +1,15 @@
+_id: greq_42f95410f601483d9f1e213b66029f2c
+type: GrpcRequest
+parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddff8e966d1
+modified: 1659108189010
+created: 1659107909306
+url: 127.0.0.1:50051
+name: Delete node
+description: ""
+protoFileId: pf_23c1cf2cf1ed4621b3188959a0eb33e9
+protoMethodName: /kiko.KikoService/DeleteNode
+metadata: []
+body:
+  text: '{"node": "48e94c89-72cd-4d45-84d9-e15d5b7f8bb3"}'
+metaSortKey: -1658752075212
+isPrivate: false

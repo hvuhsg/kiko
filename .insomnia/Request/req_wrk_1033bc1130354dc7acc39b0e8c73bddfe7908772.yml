@@ -1,7 +1,7 @@
 _id: req_wrk_1033bc1130354dc7acc39b0e8c73bddfe7908772
 type: Request
 parentId: fld_wrk_1033bc1130354dc7acc39b0e8c73bddff8e966d1
-modified: 1658758232614
+modified: 1659096405575
 created: 1658752075263
 url: "{{ base_url }}/node"
 name: Get existing node
@@ -11,7 +11,7 @@ body: {}
 parameters:
   - name: node
     disabled: false
-    value: 255c2fe8-8134-484f-8edc-c570aa2d1ce1
+    value: 15683f61-c0e7-44c5-b784-68b42c1204b4
     id: pair_ee5a0de5352b4c39a838cbf03f24e399
 headers: []
 authentication: {}
