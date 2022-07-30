@@ -103,7 +103,7 @@ func NewSpaceNodeFromArray(arr []float64, nodeUuid uuid.UUID) ISpaceNode {
 // Create node with random vector with values in range 0-1
 func NewRandomSpaceNode(lenght uint, nodeUuid uuid.UUID) ISpaceNode {
 	s := new(spaceNode)
-	s.vector = vector.NewRandomVector(int(lenght))
+	s.vector = vector.NewRandomVector(int(lenght)).Mul(1000)
 	s.uuid = nodeUuid
 
 	return s

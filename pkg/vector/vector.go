@@ -33,7 +33,7 @@ func NewRandomVector(dimensions int) Vector {
 	arr := make([]float64, dimensions)
 
 	for i := range arr {
-		arr[i] = rand.Float64() * 1000
+		arr[i] = rand.Float64()
 	}
 
 	return NewVectorFromArray(arr)
