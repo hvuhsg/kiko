@@ -34,7 +34,10 @@ var (
 
 func main() {
 	flag.Parse()
-	engine := execution.NewEngine(20, 0.01, time.Second*1)
+
+	engine := execution.NewEngine(2, 0.05, time.Millisecond*100)
+	go engine.Optimize()
+
 	grpcServer := gserver.NewServer(&engine, *host, *port)
 	grpcServer.Run()
 }
