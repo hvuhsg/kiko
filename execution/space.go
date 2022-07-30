@@ -2,6 +2,7 @@ package execution
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/google/uuid"
 	"github.com/hvuhsg/kiko/pkg/vector"
@@ -11,6 +12,7 @@ import (
 type space struct {
 	kdtreeSpace kdtree.KDTree
 	dimensions  uint
+	lock        sync.Mutex
 }
 
 // Create nodes vector space
@@ -24,6 +26,9 @@ func NewSpace(dimensions uint) ISpace {
 
 // Add node to vector space
 func (s *space) AddNode(nodeUuid uuid.UUID) *ISpaceNode {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	spaceNode := NewRandomSpaceNode(s.dimensions, nodeUuid)
 
 	s.kdtreeSpace.Insert(spaceNode)
@@ -33,6 +38,9 @@ func (s *space) AddNode(nodeUuid uuid.UUID) *ISpaceNode {
 
 // Remove node from vector space
 func (s *space) RemoveNode(spaceNode *ISpaceNode) error {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	foundNode := s.kdtreeSpace.Remove(*spaceNode)
 	if foundNode == nil {
 		return fmt.Errorf("node '%s' does not exist", (*spaceNode).GetUUID().String())
@@ -42,11 +50,17 @@ func (s *space) RemoveNode(spaceNode *ISpaceNode) error {
 }
 
 func (s *space) UpdateNode(old *ISpaceNode, new *ISpaceNode) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	s.kdtreeSpace.Remove(*old)
 	s.kdtreeSpace.Insert(*new)
 }
 
 func (s *space) KNN(spaceNode *ISpaceNode, k int) []uuid.UUID {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	closeNodes := s.kdtreeSpace.KNN(*spaceNode, int(k+1))
 	nodesUuids := make([]uuid.UUID, len(closeNodes)-1)
 
