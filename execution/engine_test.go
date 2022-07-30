@@ -40,13 +40,12 @@ func TestRemoveNonExistingNode(t *testing.T) {
 }
 
 func TestOptimaize(t *testing.T) {
-	e := execution.NewEngine(2, 0.1, time.Millisecond*50)
+	e := execution.NewEngine(2, 0.1, time.Millisecond*25)
 	n1 := e.AddNode()
 	n2 := e.AddNode()
 	n3 := e.AddNode()
 	e.AddConnection(n1, n2, 1)
 	e.AddConnection(n1, n3, 10)
-	e.AddConnection(n2, n3, 5)
 
 	go e.Optimize()
 	time.Sleep(1 * time.Second)

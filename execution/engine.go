@@ -97,9 +97,12 @@ func optimaizeNode(e *engine, nodeUuid uuid.UUID) {
 		connectionSpaceNode, _ := (*e.sorage).GetSpaceNode(connectionNodeUuid)
 		diffVec := (*connectionSpaceNode).GetVector().Sub(currentPosition)
 		diffNorm := diffVec.Norm()
-		normalizedDiffVec := diffVec.Normalize()
-		shiftLenght := (diffNorm - float64(weight)) * e.learningRate
-		updatedPosition = currentPosition.Add(normalizedDiffVec.Mul(shiftLenght))
+
+		if diffNorm < float64(weight) {
+			diffVec = diffVec.Mul(-1)
+		}
+
+		updatedPosition = currentPosition.Add(diffVec.Mul(e.learningRate))
 	}
 
 	if len(connections) > 0 {
