@@ -24,7 +24,7 @@ type IStorage interface {
 	UpdateConnectionWeight(uuid.UUID, uuid.UUID, uint) error
 	GetNodeConnections(uuid.UUID) (map[uuid.UUID]uint, error)
 	GetSpaceNode(uuid.UUID) (*ISpaceNode, error)
-	GetNodesUUIDChannel() chan uuid.UUID
+	GetNodes() []uuid.UUID
 }
 
 // Vector space for the nodes
