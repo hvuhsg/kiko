@@ -74,11 +74,7 @@ func (e *engine) AddConnection(from uuid.UUID, to uuid.UUID, weight uint) error 
 	defer e.unlock()
 
 	err := (*e.sorage).AddConnection(from, to, weight)
-	if err != nil {
-		return err
-	}
-
-	return (*e.sorage).AddConnection(to, from, weight)
+	return err
 }
 
 // Remove connection between nodes by thire uuids
@@ -87,11 +83,7 @@ func (e *engine) RemoveConnection(from uuid.UUID, to uuid.UUID) error {
 	defer e.unlock()
 
 	err := (*e.sorage).RemoveConnection(from, to)
-	if err != nil {
-		return err
-	}
-
-	return (*e.sorage).RemoveConnection(to, from)
+	return err
 }
 
 // Update connection weight
@@ -100,11 +92,7 @@ func (e *engine) UpdateConnectionWeight(from uuid.UUID, to uuid.UUID, weight uin
 	defer e.unlock()
 
 	err := (*e.sorage).UpdateConnectionWeight(from, to, weight)
-	if err != nil {
-		return err
-	}
-
-	return (*e.sorage).UpdateConnectionWeight(to, from, weight)
+	return err
 }
 
 func optimaizeNode(e *engine, nodeUuid uuid.UUID) {
