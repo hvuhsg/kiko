@@ -16,7 +16,7 @@ var (
 func main() {
 	flag.Parse()
 
-	engine := execution.NewEngine(2, 0.05, time.Millisecond*100)
+	engine := execution.NewEngine(5, 0.05, time.Millisecond*20)
 	go engine.Optimize()
 
 	server := rest.NewServer(*host, *port, &engine)
