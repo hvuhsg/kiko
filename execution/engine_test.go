@@ -45,7 +45,9 @@ func TestOptimaize(t *testing.T) {
 	n2 := e.AddNode()
 	n3 := e.AddNode()
 	e.AddConnection(n1, n2, 1)
+	e.AddConnection(n2, n1, 1)
 	e.AddConnection(n1, n3, 10)
+	e.AddConnection(n3, n1, 10)
 
 	go e.Optimize()
 	time.Sleep(1 * time.Second)
