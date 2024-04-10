@@ -4,7 +4,7 @@ Kiko general purpose recommendation system
 ---
 
 [![Go](https://github.com/hvuhsg/kiko/actions/workflows/go.yml/badge.svg)](https://github.com/hvuhsg/kiko/actions/workflows/go.yml)
-
+[![Bring Them Home](https://badge.yehoyada.com)](https://www.standwithus.com/)  
 
 ### Key concepts
 **Node**: Entity that can have connections to other entities, for example, a player in a sports group or color in a clothing shop.  
